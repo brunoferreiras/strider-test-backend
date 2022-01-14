@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->group(function () {
-    Route::get('/posts', 'App\Http\Controllers\PostsController@all');
+    Route::prefix('posts')->group(function () {
+        Route::get('/', 'App\Http\Controllers\PostsController@all');
+        Route::post('/', 'App\Http\Controllers\PostsController@store');
+    });
 
     Route::post('/users', 'App\Http\Controllers\UsersController@store');
 });
