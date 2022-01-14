@@ -45,8 +45,9 @@ class UsersController extends Controller
         return response()->json([], 204);
     }
 
-    public function profile(string $username, Request $request)
+    public function profile(string $username)
     {
-        dd($this->repository->getProfileByUsername($username));
+        $profile = $this->repository->getProfileByUsername($username);
+        return response()->json($profile, 200);
     }
 }

@@ -18,6 +18,7 @@ Route::prefix('v1')->group(function () {
     Route::prefix('posts')->group(function () {
         Route::get('/', 'App\Http\Controllers\PostsController@all');
         Route::post('/', 'App\Http\Controllers\PostsController@store');
+        Route::post('/{id}/repost', 'App\Http\Controllers\RepostsController@repost');
     });
 
     Route::prefix('users')->group(function() {
