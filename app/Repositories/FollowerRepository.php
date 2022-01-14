@@ -11,5 +11,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface FollowerRepository extends RepositoryInterface
 {
-    //
+    public function follow(string $follower, $following): void;
+
+    public function unfollow(string $follower, $following): void;
 }

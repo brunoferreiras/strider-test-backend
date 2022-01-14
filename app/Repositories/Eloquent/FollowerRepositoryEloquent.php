@@ -25,7 +25,6 @@ class FollowerRepositoryEloquent extends BaseRepository implements FollowerRepos
     }
 
 
-
     /**
      * Boot up the repository, pushing criteria
      */
@@ -34,4 +33,19 @@ class FollowerRepositoryEloquent extends BaseRepository implements FollowerRepos
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    public function follow(string $follower, $following): void
+    {
+        $this->firstOrCreate([
+            'follower_id' => $follower,
+            'following_id' => $following
+        ]);
+    }
+
+    public function unfollow(string $follower, $following): void
+    {
+        $this->deleteWhere([
+            'follower_id' => $follower,
+            'following_id' => $following
+        ]);
+    }
 }

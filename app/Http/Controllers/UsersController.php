@@ -31,7 +31,17 @@ class UsersController extends Controller
             'follower_id' => 'required|exists:users,id',
             'following_id' => 'required|exists:users,id|different:follower_id',
         ]);
-        $this->followerRepository->firstOrCreate($validated);
+        $this->followerRepository->follow($validated['follower_id'], $validated['following_id']);
+        return response()->json([], 204);
+    }
+
+    public function unfollow(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $validated = $request->validate([
+            'follower_id' => 'required|exists:users,id',
+            'following_id' => 'required|exists:users,id|different:follower_id',
+        ]);
+        $this->followerRepository->unfollow($validated['follower_id'], $validated['following_id']);
         return response()->json([], 204);
     }
 }
