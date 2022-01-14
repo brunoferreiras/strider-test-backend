@@ -7,11 +7,11 @@ use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
 /**
- * Class User.
+ * Class Follower.
  *
  * @package namespace App\Models;
  */
-class User extends Model implements Transformable
+class Follower extends Model implements Transformable
 {
     use TransformableTrait;
 
@@ -20,6 +20,5 @@ class User extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = ['name', 'username'];
-
+    protected $fillable = ['follower_id', 'following_id'];
 }
