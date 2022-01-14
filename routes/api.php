@@ -20,5 +20,8 @@ Route::prefix('v1')->group(function () {
         Route::post('/', 'App\Http\Controllers\PostsController@store');
     });
 
-    Route::post('/users', 'App\Http\Controllers\UsersController@store');
+    Route::prefix('users')->group(function() {
+        Route::post('/', 'App\Http\Controllers\UsersController@store');
+        Route::post('/{username}/follow', 'App\Http\Controllers\UsersController@follow');
+    });
 });
