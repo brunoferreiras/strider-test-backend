@@ -11,5 +11,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface PostRepository extends RepositoryInterface
 {
-    //
+    public function getTotalPostsToday(string $userId): int;
 }

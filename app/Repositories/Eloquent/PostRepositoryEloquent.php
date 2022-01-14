@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use Illuminate\Support\Carbon;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\PostRepository;
@@ -30,5 +31,10 @@ class PostRepositoryEloquent extends BaseRepository implements PostRepository
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function getTotalPostsToday(string $userId): int
+    {
+        return $this->where('user_id', $userId)->whereDate('created_at', Carbon::today())->count();
     }
 }

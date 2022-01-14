@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Repositories\PostRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PostStoreRequest extends FormRequest
@@ -13,7 +15,8 @@ class PostStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $total = app()->make(PostRepository::class)->getTotalPostsToday(request()->post('user_id'));
+        return $total <= 5;
     }
 
     /**
@@ -27,5 +30,10 @@ class PostStoreRequest extends FormRequest
             'content' => 'required|string|max:777',
             'user_id' => 'required|exists:users,id'
         ];
+    }
+
+    protected function failedAuthorization()
+    {
+        throw new AuthorizationException('You can\'t create more than 5 posts per day.');
     }
 }
