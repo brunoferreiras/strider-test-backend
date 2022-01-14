@@ -24,5 +24,6 @@ Route::prefix('v1')->group(function () {
         Route::post('/', 'App\Http\Controllers\UsersController@store');
         Route::post('/{username}/follow', 'App\Http\Controllers\UsersController@follow');
         Route::post('/{username}/unfollow', 'App\Http\Controllers\UsersController@unfollow');
+        Route::get('/{username}/profile', 'App\Http\Controllers\UsersController@profile');
     });
 });

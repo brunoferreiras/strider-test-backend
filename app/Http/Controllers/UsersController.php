@@ -44,4 +44,9 @@ class UsersController extends Controller
         $this->followerRepository->unfollow($validated['follower_id'], $validated['following_id']);
         return response()->json([], 204);
     }
+
+    public function profile(string $username, Request $request)
+    {
+        dd($this->repository->getProfileByUsername($username));
+    }
 }

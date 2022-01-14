@@ -24,7 +24,6 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         return User::class;
     }
 
-
     /**
      * Boot up the repository, pushing criteria
      */
@@ -33,4 +32,20 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    public function getUserByUsername(string $username): User
+    {
+        return $this->where('username', $username)->first();
+    }
+
+    public function getProfileByUsername(string $username): array
+    {
+        $user = $this->getUserByUsername($username);
+        return [
+            'username' => $username,
+            'date_joined' => $user->dateJoined,
+            'total_followers' => $user->followers()->count(),
+            'total_following' => $user->following()->count(),
+            'total_posts' => $user->posts()->with('totalPosts')->count()
+        ];
+    }
 }

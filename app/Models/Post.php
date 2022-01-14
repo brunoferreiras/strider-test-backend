@@ -18,6 +18,11 @@ class Post extends Model implements Transformable
 
     protected $fillable = ['content', 'user_id'];
 
+    public function totalReposts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Repost::class,'post_id', 'id');
+    }
+
     public function reposts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Repost::class, 'post_id', 'id')->where('comment', '!=', '');

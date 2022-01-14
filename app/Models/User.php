@@ -23,8 +23,23 @@ class User extends Model implements Transformable
      */
     protected $fillable = ['name', 'username'];
 
+    public function getDateJoinedAttribute($value)
+    {
+        return $this->created_at->format('M j, Y');
+    }
+
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function followers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Follower::class, 'follower_id', 'id');
+    }
+
+    public function following(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Follower::class, 'following_id', 'id');
     }
 }
