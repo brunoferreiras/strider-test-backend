@@ -21,7 +21,7 @@ class CreateRepostsTable extends Migration
     {
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('comment', 777);
+            $table->string('comment', 777)->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('post_id');
             $table->timestamps();
