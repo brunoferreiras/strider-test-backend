@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\Contracts\RepostRepository;
-use App\Models\Repost;
-use App\Validators\RepostValidator;
+use App\Repositories\UserRepository;
+use App\Models\User;
 
 /**
- * Class RepostRepositoryEloquent.
+ * Class UserRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class RepostRepositoryEloquent extends BaseRepository implements RepostRepository
+class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
     /**
      * Specify Model class name
@@ -22,10 +21,9 @@ class RepostRepositoryEloquent extends BaseRepository implements RepostRepositor
      */
     public function model()
     {
-        return Repost::class;
+        return User::class;
     }
 
-    
 
     /**
      * Boot up the repository, pushing criteria
@@ -34,5 +32,5 @@ class RepostRepositoryEloquent extends BaseRepository implements RepostRepositor
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
 }

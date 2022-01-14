@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\Contracts\FollowerRepository;
-use App\Models\Follower;
-use App\Validators\FollowerValidator;
+use App\Repositories\PostRepository;
+use App\Models\Post;
 
 /**
- * Class FollowerRepositoryEloquent.
+ * Class PostRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class FollowerRepositoryEloquent extends BaseRepository implements FollowerRepository
+class PostRepositoryEloquent extends BaseRepository implements PostRepository
 {
     /**
      * Specify Model class name
@@ -22,10 +21,8 @@ class FollowerRepositoryEloquent extends BaseRepository implements FollowerRepos
      */
     public function model()
     {
-        return Follower::class;
+        return Post::class;
     }
-
-    
 
     /**
      * Boot up the repository, pushing criteria
@@ -34,5 +31,4 @@ class FollowerRepositoryEloquent extends BaseRepository implements FollowerRepos
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
 }
