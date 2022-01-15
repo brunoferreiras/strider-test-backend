@@ -44,7 +44,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             'username' => $username,
             'date_joined' => $user->dateJoined,
             'total_followers' => $user->followers()->count(),
-            'total_following' => $user->following()->count(),
+            'total_following' => $user->followings()->count(),
             'total_posts' => $user->posts()->with('totalPosts')->count()
         ];
     }

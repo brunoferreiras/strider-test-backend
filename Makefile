@@ -7,6 +7,12 @@ restart:
 build:
 	docker-compose up -d --build
 
+test:
+	docker-compose exec api ./vendor/bin/phpunit --testdox --verbose
+
+cov:
+	docker-compose exec api ./vendor/bin/phpunit --coverage-html coverage/
+
 down:
 	docker-compose down
 

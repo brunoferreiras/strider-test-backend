@@ -30,6 +30,7 @@ services:
         container_name: posterr-api
         volumes:
             - ./:/var/www/html
+            - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
         restart: unless-stopped
         tty: true
         networks:

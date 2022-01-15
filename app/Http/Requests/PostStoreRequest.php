@@ -16,7 +16,7 @@ class PostStoreRequest extends FormRequest
     public function authorize()
     {
         $total = app()->make(PostRepository::class)->getTotalPostsToday(request()->post('user_id'));
-        return $total <= 5;
+        return $total < 5;
     }
 
     /**
