@@ -176,7 +176,7 @@ HTTP 204
 ```json
 ```
 
-## Cobertura de testes
+## Code Coverage
 
 Execute the tests:
 ```bash
@@ -186,3 +186,17 @@ make test
 ./vendor/bin/phpunit --testdox --verbose
 ```
 ![Coverage](./docs/coverage.png)
+
+# Planning
+
+### Questions about implementation
+1. What permission rules will need?
+2. Can the user reply to the post itself?
+3. Will the response have the same daily post-creation limit?
+
+### Implement solution
+1. Create a new column in the `posts` table called the `mentioned_id`, which will be the post that was mentioned.
+2. Create a new tab on the front of the home page for this functionality.
+3. In the post-creation route, a regex will be added to the content to identify a mention, if there is a mention, a search in the database will be performed to identify the post, and then add the post id in the `mentioned_id` field of the table `posts`.
+4. A new route will be created with the paginated information that will return only as posts that have been mentioned.
+5. In the post creation route, if a reply to the post does not respect the same limit of daily posts, an exception to this rule must be created for this situation in the authorization of the request. Otherwise, they executed the same.
