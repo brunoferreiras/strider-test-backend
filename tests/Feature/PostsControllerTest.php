@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Follower;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -23,6 +24,28 @@ class PostsControllerTest extends TestCase
             ->decodeResponseJson();
         $expected = $post->with(['reposts', 'quotePosts'])->get()->toArray();
         $this->assertEquals($expected, $response['data']);
+    }
+
+    public function test_list_all_posts_only_following()
+    {
+        $user = User::factory()->create();
+        Post::factory(1)->create([
+            'content' => $this->faker->text(200),
+            'user_id' => $user->id,
+        ]);
+        $following = User::factory()->create();
+        Post::factory(2)->create([
+            'content' => $this->faker->text(200),
+            'user_id' => $following->id,
+        ]);
+        Follower::create([
+            'follower_id' => $user->id,
+            'following_id' => $following->id
+        ]);
+        $this->json('GET', "/api/v1/posts/following?user_id={$user->id}")
+            ->assertStatus(200)
+            ->decodeResponseJson()
+            ->assertCount(2, 'data');
     }
 
     public function test_create_post()
