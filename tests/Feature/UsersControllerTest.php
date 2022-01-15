@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Follower;
+use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
@@ -49,5 +51,38 @@ class UsersControllerTest extends TestCase
                     'username' => ['The username must not be greater than 14 characters.']
                 ]
             ]);
+    }
+
+    public function test_follow_user()
+    {
+        $follower = User::factory()->create();
+        $following = User::factory()->create();
+        $payload = [
+            'follower_id' => $follower->id,
+            'following_id' => $following->id
+        ];
+        $this->json('POST', "/api/v1/users/{$following->id}/follow", $payload)
+            ->assertStatus(204);
+        $data = Follower::first();
+        $this->assertEquals([
+            'follower_id' => $follower->id,
+            'following_id' => $following->id,
+        ], $data->only(['follower_id', 'following_id']));
+    }
+
+    public function test_unfollow_user()
+    {
+        $follower = User::factory()->create();
+        $following = User::factory()->create();
+        Follower::create([
+            'follower_id' => $follower->id,
+            'following_id' => $following->id
+        ]);
+        $payload = [
+            'follower_id' => $follower->id,
+            'following_id' => $following->id
+        ];
+        $this->json('POST', "/api/v1/users/{$following->id}/unfollow", $payload)
+            ->assertStatus(204);
     }
 }
