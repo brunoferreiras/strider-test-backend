@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Follower;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -84,5 +85,40 @@ class UsersControllerTest extends TestCase
         ];
         $this->json('POST', "/api/v1/users/{$following->id}/unfollow", $payload)
             ->assertStatus(204);
+    }
+
+    public function test_get_profile()
+    {
+        // Create users
+        $user = User::factory()->create();
+        // Add new follower
+        $follower = User::factory()->create();
+        Follower::create([
+            'follower_id' => $follower->id,
+            'following_id' => $user->id
+        ]);
+        // Add new following
+        $following = User::factory()->create();
+        Follower::create([
+            'follower_id' => $user->id,
+            'following_id' => $following->id
+        ]);
+        // Add new post
+        Post::create([
+            'content' => 'any_content',
+            'user_id' => $user->id
+        ]);
+        $response = $this->json('GET', "/api/v1/users/{$user->username}/profile")
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'username', 'date_joined', 'total_followers', 'total_following', 'total_posts'
+            ])->decodeResponseJson();
+        $response->assertExact([
+            'username' => $user->username,
+            'date_joined' => $user->dateJoined,
+            'total_followers' => 1,
+            'total_following' => 1,
+            'total_posts' => 1
+        ]);
     }
 }
