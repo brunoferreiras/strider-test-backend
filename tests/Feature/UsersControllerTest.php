@@ -26,14 +26,14 @@ class UsersControllerTest extends TestCase
     {
         $payload = [
             'name' => 'Any',
-            'username' => 'test!@#%4'
+            'username' => 'test!@#%'
         ];
         $this->json('POST', '/api/v1/users', $payload)
             ->assertStatus(422)
             ->assertJson([
                 'message' => 'The given data was invalid.',
                 'errors' => [
-                    'username' => ['The username must only contain letters and numbers.']
+                    'username' => ['The username must only contain letters, numbers, dashes and underscores.']
                 ]
             ]);
 

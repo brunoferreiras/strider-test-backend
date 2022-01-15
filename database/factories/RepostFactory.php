@@ -17,8 +17,8 @@ class RepostFactory extends Factory
     {
         return [
             'comment' => $this->faker->text(777),
-            'user_id' => User::pluck('id')[$this->faker->numberBetween(1, User::count() - 1)],
-            'post_id' => Post::pluck('id')[$this->faker->numberBetween(1, Post::count() - 1)],
+            'user_id' => User::pluck('id')[$this->faker->numberBetween(0, User::count() - 1)],
+            'post_id' => Post::pluck('id')[$this->faker->numberBetween(0, Post::count() - 1)],
         ];
     }
 }

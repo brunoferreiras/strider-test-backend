@@ -25,7 +25,7 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'username' => 'required|alpha_num|unique:users|max:14'
+            'username' => 'required|alpha_dash|unique:users|max:14'
         ];
     }
 }
