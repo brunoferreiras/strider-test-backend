@@ -15,11 +15,20 @@ make bash
 // Generate the key
 php artisan key:generate
 // It's everything!
+// You can access the api in: http://localhost:8040/
 ```
 ## Framework
 - [Laravel](https://laravel.com/)
 ## Database
 - MySQL 8.0
+
+### Migrations
+```bash
+// Drop/Create migrations with seeds
+php artisan migrate:fresh --seed
+// Install database without datas
+php artisan migrate:fresh
+```
 
 ## API Docs
 ### Get all posts
