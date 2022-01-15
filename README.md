@@ -200,3 +200,19 @@ make test
 3. In the post-creation route, a regex will be added to the content to identify a mention, if there is a mention, a search in the database will be performed to identify the post, and then add the post id in the `mentioned_id` field of the table `posts`.
 4. A new route will be created with the paginated information that will return only as posts that have been mentioned.
 5. In the post creation route, if a reply to the post does not respect the same limit of daily posts, an exception to this rule must be created for this situation in the authorization of the request. Otherwise, they executed the same.
+
+# Critique
+### Improvements
+1. Optimize docker images (removing waits and installing packages in docker entrypoint)
+2. Add more tests to fails situation
+3. Install ElasticSearch to implement the search posts
+4. Add cache (Redis) for most used routes (posts, etc)
+5. Add custom logs during the executions on routes
+6. Add oauth2/JWT to better identify users.
+
+### Scalling
+1. Use some database in cloud (Google Cloud SQL, for example)
+2. Install Kubernetes to manager the services
+3. Add observability with Istio
+4. Use Elastic Search for logs
+5. Use some cache service in cloud
