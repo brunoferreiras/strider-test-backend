@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Collection;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
@@ -12,4 +13,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface PostRepository extends RepositoryInterface
 {
     public function getTotalPostsToday(string $userId): int;
+
+    public function getAllPostsByFollowing(array $followingIds);
 }

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::prefix('posts')->group(function () {
         Route::get('/', 'App\Http\Controllers\PostsController@all');
+        Route::get('/following', 'App\Http\Controllers\PostsController@allFollowing');
         Route::post('/', 'App\Http\Controllers\PostsController@store');
         Route::post('/{id}/repost', 'App\Http\Controllers\RepostsController@repost');
     });

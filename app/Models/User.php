@@ -35,11 +35,11 @@ class User extends Model implements Transformable
 
     public function followers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Follower::class, 'follower_id', 'id');
+        return $this->hasMany(Follower::class, 'following_id', 'id');
     }
 
-    public function following(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function followings(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Follower::class, 'following_id', 'id');
+        return $this->hasMany(Follower::class, 'follower_id', 'id');
     }
 }

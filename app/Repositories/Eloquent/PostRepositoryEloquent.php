@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\PostRepository;
@@ -36,5 +37,10 @@ class PostRepositoryEloquent extends BaseRepository implements PostRepository
     public function getTotalPostsToday(string $userId): int
     {
         return $this->where('user_id', $userId)->whereDate('created_at', Carbon::today())->count();
+    }
+
+    public function getAllPostsByFollowing(array $followingIds)
+    {
+        return $this->whereIn('user_id', $followingIds)->paginate(config('app.paginate'));
     }
 }
