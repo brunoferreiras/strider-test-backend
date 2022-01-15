@@ -209,6 +209,7 @@ make test
 4. Add cache (Redis) for most used routes (posts, etc)
 5. Add custom logs during the executions on routes
 6. Add oauth2/JWT to better identify users.
+7. Analyze what slow executing queries and optimize them.
 
 ### Scalling
 1. Use some database in cloud (Google Cloud SQL, for example)
